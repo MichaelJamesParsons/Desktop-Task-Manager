@@ -1,0 +1,122 @@
+﻿<Window x:Name="Dashboard" x:Class="TimeTracker.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TimeTracker"
+        mc:Ignorable="d"
+        Title="TaskTracker">
+    <Window.Resources></Window.Resources>
+
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"></RowDefinition>
+            <RowDefinition Height="Auto"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto" />
+            <ColumnDefinition Width="*" />
+        </Grid.ColumnDefinitions>
+
+        <!--<Rectangle Name="rect" Width="300" VerticalAlignment="Stretch" Fill="#e1e1e1" Visibility="Visible" HorizontalAlignment="Left" />-->
+
+        <StackPanel Name="rect" Grid.Row="0" Grid.Column="0" Background="#e1e1e1">
+            <Button Style="{StaticResource SidebarNavItem}" 
+                    VerticalAlignment="Top"
+                    HorizontalAlignment="Left"
+                    Background="Transparent" 
+                    Click="Button_Click" 
+                    RenderTransformOrigin="4.516,0.248"
+                    Padding="12">
+                <Canvas xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" Width="24" Height="24">
+                    <Path Data="M3,6H21V8H3V6M3,11H21V13H3V11M3,16H21V18H3V16Z" Fill="Black"/>
+                </Canvas>
+            </Button>
+            <Button x:Name="Nav_Dashboard" Style="{StaticResource SidebarNavItem}" Click="Nav_Dashboard_Click">
+                <StackPanel Orientation="Horizontal">
+                    <Canvas xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+                            xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+                            Width="24" 
+                            Height="24">
+                        <Path Data="M13,3V9H21V3M13,21H21V11H13M3,21H11V15H3M3,13H11V3H3V13Z" Fill="#333" />
+                    </Canvas>
+                    <TextBlock Margin="10 0 0 0">Dashboard</TextBlock>
+                </StackPanel>
+            </Button>
+            <Button x:Name="Nav_My_Tasks" Style="{StaticResource SidebarNavItem}" Click="Nav_My_Tasks_Click">
+                <StackPanel Orientation="Horizontal">
+                    <Canvas xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+                            xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+                            Width="24" 
+                            Height="24">
+                        <Path Data="M17,9H7V7H17M17,13H7V11H17M14,17H7V15H14M12,3A1,1 0 0,1 13,4A1,1 0 0,1 12,5A1,1 0 0,1 11,4A1,1 0 0,1 12,3M19,3H14.82C14.4,1.84 13.3,1 12,1C10.7,1 9.6,1.84 9.18,3H5A2,2 0 0,0 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V5A2,2 0 0,0 19,3Z"
+                              Fill="#333"/>
+                    </Canvas>
+                    <TextBlock Margin="10 0 0 0">My Tasks</TextBlock>
+                </StackPanel>
+            </Button>
+            <Button x:Name="Nav_Reports" Style="{StaticResource SidebarNavItem}" Click="Nav_Reports_Click">
+                <StackPanel Orientation="Horizontal">
+                    <Canvas xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+                            xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+                            Width="24"
+                            Height="24">
+                        <Path Data="M22,21H2V3H4V19H6V10H10V19H12V6H16V19H18V14H22V21Z" Fill="#333" />
+                    </Canvas>
+                    <TextBlock Margin="10 0 0 0">Reports</TextBlock>
+                </StackPanel>
+            </Button>
+        </StackPanel>
+
+        <Frame x:Name="contentViewPort" Grid.Column="1" NavigationUIVisibility="Hidden"></Frame>
+        
+
+
+        <!--<StackPanel Grid.Column="1" Background="#000000">
+           
+            <StackPanel Orientation="Horizontal">
+                <TextBlock Margin="10 0 0 0">Time</TextBlock>
+                <TextBlock Margin="10 0 0 0">Tracker</TextBlock>
+            </StackPanel>
+        </StackPanel>-->
+
+
+        <!--<Grid ZIndex="100" Grid.Row="1">
+            <Grid.Background>
+                <SolidColorBrush Opacity="0.95" Color="#216897"/>
+            </Grid.Background>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Column="0">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</TextBlock>
+            <StackPanel Orientation="Horizontal">
+                <Button>Test</Button>
+            </StackPanel>
+        </Grid>-->
+
+
+        <Grid ZIndex="100" Grid.Row="1" Grid.ColumnSpan="2">
+            <Grid.Background>
+                <SolidColorBrush Opacity="0.95" Color="#216897"/>
+            </Grid.Background>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="Auto" />
+            </Grid.ColumnDefinitions>
+            <TextBlock Grid.Column="0" Style="{StaticResource TrayTaskLabel}">Lorem Ipsum</TextBlock>
+            <StackPanel Orientation="Horizontal" Grid.Column="1">
+                <Button Style="{StaticResource TrayControlItem}">
+                    <Image Source="assets/win10_play_icon.png" Width="24" Height="24"></Image>
+                </Button>
+                <Button Style="{StaticResource TrayControlItem}">
+                    <Image Source="assets/win10_pause_icon.png" Width="24" Height="24"></Image>
+                </Button>
+                <TextBlock Style="{StaticResource TrayTimer}">2 min 30 sec</TextBlock>
+            </StackPanel>
+        </Grid>
+
+    </Grid>
+
+</Window>
