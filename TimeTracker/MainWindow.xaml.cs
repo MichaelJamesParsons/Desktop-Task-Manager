@@ -31,6 +31,9 @@ namespace TimeTracker
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+            var a = 3;
+            var b = 4;
+            var c = a*b;
             if (Math.Abs(rect.Width - 52) < 1)
             {
                 rect.BeginAnimation(StackPanel.WidthProperty, new DoubleAnimation
