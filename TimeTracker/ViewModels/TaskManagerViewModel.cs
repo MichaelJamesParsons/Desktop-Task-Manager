@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -59,14 +61,16 @@ namespace TimeTracker.ViewModels
 
         public TaskManagerViewModel(MasterViewModel masterViewModel, ITaskService taskService)
         {
-            _isLoadingTasks = false;
+            _isLoadingTasks = true;
             _isAddTaskButtonEnabled = true;
             _taskService = taskService;
             _masterViewModel = masterViewModel;
 
             Tasks = new ObservableCollection<Task>();
 
-            Task a = new Task("Task 1 with a really really really really really really long description");
+            LoadTasks.Execute(null);
+
+            /*Task a = new Task("Task 1 with a really really really really really really long description");
             TimeEntry t = new TimeEntry();
             t.StartTime = new DateTime(2016, 11, 25, 13, 0, 0);
             t.EndTime = new DateTime(2016, 11, 25, 13, 20, 15);
@@ -77,7 +81,7 @@ namespace TimeTracker.ViewModels
             Tasks.Add(new Task("Task 2"));
             Tasks.Add(new Task("Task 3"));
             Tasks.Add(new Task("Task 4"));
-            Tasks.Add(new Task("Task 5"));
+            Tasks.Add(new Task("Task 5"));*/
         }
 
 
@@ -113,44 +117,82 @@ namespace TimeTracker.ViewModels
             IsAddTaskButtonEnabled = true;
         }
 
-
+        /// <summary>
+        /// Deletes task from data source.
+        /// </summary>
         public ICommand RemoveTaskCommand
         {
             get
             {
-                return new ActionCommand(OnRemoveTaskBegin, o => true);
-            }
-        }
-
-        private void OnRemoveTaskBegin(object o)
-        {
-            var task = (Task)o;
-
-            if (task.Id != 0)
-            {
-                //Request to delete task from service
-                var asyncTask = System.Threading.Tasks.Task.Run(() => _taskService.Delete(task));
-
-                //Process response with callback
-                asyncTask.ContinueWith((t) =>
+                return new ActionCommand(o =>
                 {
-                    OnRemoveTaskComplete(t, task);
-                }, TaskScheduler.FromCurrentSynchronizationContext());
-            }
-            else
-            {
-                RemoveTask(task);
+                    var task = (Task)o;
+
+                    if (task.Id != 0)
+                    {
+                        //Request to delete task from service
+                        var asyncTask = System.Threading.Tasks.Task.Run(() => _taskService.Delete(task));
+
+                        //Process response with callback
+                        asyncTask.ContinueWith((t) =>
+                        {
+                            OnRemoveTaskComplete(t, task);
+                        }, TaskScheduler.FromCurrentSynchronizationContext());
+                    }
+                    else
+                    {
+                        RemoveTask(task);
+                    }
+                }, o => true);
             }
         }
 
+        /// <summary>
+        /// Removes task from UI after being deleted from data source.
+        /// </summary>
+        /// <param name="asyncTask"></param>
+        /// <param name="task"></param>
         private void OnRemoveTaskComplete(Task<bool> asyncTask, Task task)
         {
             RemoveTask(task);
         }
 
+        /// <summary>
+        /// Removes task from UI.
+        /// </summary>
+        /// <param name="task"></param>
         private void RemoveTask(Task task)
         {
             Tasks.Remove(task);
+        }
+
+        public ICommand LoadTasks
+        {
+            get
+            {
+                return new ActionCommand(o =>
+                {
+                    IsLoadingTasks = true;
+                    //Request to delete task from service
+                    var asyncTask = System.Threading.Tasks.Task.Run(() => _taskService.GetAll());
+
+                    //Process response with callback
+                    asyncTask.ContinueWith(OnTasksLoaded, TaskScheduler.FromCurrentSynchronizationContext());
+                }, o => true);
+            }
+        }
+
+        private void OnTasksLoaded(Task<List<Task>> asyncTask)
+        {
+            var tasksToAdd = asyncTask.Result;
+            Tasks.Clear();
+
+            foreach (var t in tasksToAdd)
+            {
+                Tasks.Add(t);
+            }
+
+            IsLoadingTasks = false;
         }
 
 

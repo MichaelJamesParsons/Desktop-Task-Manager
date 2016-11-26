@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Net;
+using System.Threading;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Service;
@@ -38,13 +39,13 @@ namespace TimeTracker.Services
 
         public List<Task> GetAll()
         {
-            HttpWebRequest request = (HttpWebRequest) WebRequest.Create(TaskEndpoint + "all/");
+            HttpWebRequest request = (HttpWebRequest) WebRequest.Create(TaskEndpoint + "/all");
             request.Method = "GET";
 
             var response = (HttpWebResponse) request.GetResponse();
-            var json = JObject.Parse((new StreamReader(response.GetResponseStream())).ReadToEnd());
+            var json = JArray.Parse((new StreamReader(response.GetResponseStream())).ReadToEnd());
 
-            return ((JArray) json.GetValue("tasks")).ToObject<List<Task>>();
+            return json.ToObject<List<Task>>();
         }
 
         public List<Task> GetAllRunning()

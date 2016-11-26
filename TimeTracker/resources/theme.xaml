@@ -240,6 +240,8 @@
     </Style>
 
     <Style x:Key="TasksListView" TargetType="{x:Type ListView}">
+        <Setter Property="Margin" Value="0, 0,0,0"></Setter>
+        <Setter Property="Opacity" Value="0"></Setter>
         <Style.Triggers>
             <DataTrigger Binding="{Binding IsLoadingTasks}" Value="False">
                 <DataTrigger.EnterActions>
@@ -247,10 +249,10 @@
                         <Storyboard>
                             <DoubleAnimation
                                     Storyboard.TargetProperty="(ListView.Opacity)"
-                                    From="0.0" To="1.0" Duration="0:0:0.8"/>
+                                    From="0.0" To="1.0" Duration="0:0:0.8" BeginTime="00:00:01"/>
 
-                            <ThicknessAnimationUsingKeyFrames Storyboard.TargetProperty="Margin" BeginTime="00:00:00">
-                                <SplineThicknessKeyFrame KeyTime="00:00:00" Value="0, 0,0,0" />
+                            <ThicknessAnimationUsingKeyFrames Storyboard.TargetProperty="Margin" BeginTime="00:00:01">
+                                <SplineThicknessKeyFrame KeyTime="00:00:00" Value="0, 0, 0, 0" />
                                 <SplineThicknessKeyFrame KeyTime="00:00:0.6" Value="0, -80,0,0" />
                             </ThicknessAnimationUsingKeyFrames>
                             
@@ -260,19 +262,20 @@
                 </DataTrigger.EnterActions>
             </DataTrigger>
             <DataTrigger Binding="{Binding IsLoadingTasks}" Value="True">
+
                 <DataTrigger.EnterActions>
-                    <BeginStoryboard>
+                    <!--<BeginStoryboard>
                         <Storyboard>
                             <DoubleAnimation
                                     Storyboard.TargetProperty="(ListView.Opacity)"
-                                    From="1.0" To="0.0" Duration="0:0:0.5"/>
+                                    From="1.0" To="0.0" Duration="0:0:0.0" BeginTime="00:00:00"/>
 
                             <ThicknessAnimationUsingKeyFrames Storyboard.TargetProperty="Margin" BeginTime="00:00:00">
                                 <SplineThicknessKeyFrame KeyTime="00:00:00" Value="0, -80,0,0" />
-                                <SplineThicknessKeyFrame KeyTime="00:00:0.6" Value="0, 0,0,0" />
+                                <SplineThicknessKeyFrame KeyTime="00:00:0.0" Value="0, 0,0,0" />
                             </ThicknessAnimationUsingKeyFrames>
                         </Storyboard>
-                    </BeginStoryboard>
+                    </BeginStoryboard>-->
                 </DataTrigger.EnterActions>
             </DataTrigger>
         </Style.Triggers>
