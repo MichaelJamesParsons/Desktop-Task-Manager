@@ -1,21 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
-using System.Threading;
 using System.Threading.Tasks;
-using System.Windows.Controls;
 using System.Windows.Input;
-using TimeTracker.Annotations;
 using TimeTracker.Commands;
-using TimeTracker.Models;
 using TimeTracker.Services;
 using Task = TimeTracker.Models.Task;
 
 namespace TimeTracker.ViewModels
 {
-    class TaskManagerViewModel : INotifyPropertyChanged
+    class TaskManagerViewModel : BaseViewModel
     {
         private string _taskDescription;
         public string TaskDescription
@@ -69,19 +62,6 @@ namespace TimeTracker.ViewModels
             Tasks = new ObservableCollection<Task>();
 
             LoadTasks.Execute(null);
-
-            /*Task a = new Task("Task 1 with a really really really really really really long description");
-            TimeEntry t = new TimeEntry();
-            t.StartTime = new DateTime(2016, 11, 25, 13, 0, 0);
-            t.EndTime = new DateTime(2016, 11, 25, 13, 20, 15);
-
-            a.TimeEntries.Add(t);
-
-            Tasks.Add(a);
-            Tasks.Add(new Task("Task 2"));
-            Tasks.Add(new Task("Task 3"));
-            Tasks.Add(new Task("Task 4"));
-            Tasks.Add(new Task("Task 5"));*/
         }
 
 
@@ -195,13 +175,18 @@ namespace TimeTracker.ViewModels
             IsLoadingTasks = false;
         }
 
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        [NotifyPropertyChangedInvocator]
-        protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+        public ICommand StartTaskCommand
         {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+            get
+            {
+                return new ActionCommand(o =>
+                {
+                    var task = (Task)o;
+                    _masterViewModel.SetActiveTask(task);
+                    
+                }, o => true);
+            }
         }
+
     }
 }

@@ -255,7 +255,7 @@
                                 <SplineThicknessKeyFrame KeyTime="00:00:00" Value="0, 0, 0, 0" />
                                 <SplineThicknessKeyFrame KeyTime="00:00:0.6" Value="0, -80,0,0" />
                             </ThicknessAnimationUsingKeyFrames>
-                            
+
                         </Storyboard>
                     </BeginStoryboard>
 

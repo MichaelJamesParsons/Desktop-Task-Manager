@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using System.Windows.Input;
 using TimeTracker.Annotations;
 
 namespace TimeTracker.Models {
@@ -34,10 +35,13 @@ namespace TimeTracker.Models {
 
         public TimeSpan Duration => CalculateSpan();
 
+        public bool IsActive { get; set; }
+
         public event PropertyChangedEventHandler PropertyChanged;
 
         public Task(string description)
         {
+            IsActive = false;
             _description = description;
             TimeEntries = new List<TimeEntry>();
         }

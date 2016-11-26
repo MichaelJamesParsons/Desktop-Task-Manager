@@ -123,7 +123,10 @@
                                             Text="{Binding Duration, FallbackValue=0Hrs 0 Min 0 Sec, StringFormat=\{0:hh\} hrs \{0:mm\} min \{0:ss\} sec}" 
                                             Style="{StaticResource TaskListItemLabel}"/>
                                 <StackPanel Orientation="Horizontal" Grid.Column="2">
-                                    <Button Style="{StaticResource TasksListControlBtn}">
+                                    <Button Style="{StaticResource TasksListControlBtn}" 
+                                            Command="{Binding RelativeSource={RelativeSource FindAncestor, 
+                                                        AncestorType={x:Type Page}}, Path=DataContext.StartTaskCommand}"
+                                            CommandParameter="{Binding}">
                                         <Image Source="assets/win10_play_icon.png" Width="24" Height="24"></Image>
                                     </Button>
                                     <Button Style="{StaticResource TasksListControlBtn}" 

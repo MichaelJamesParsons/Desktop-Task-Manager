@@ -16,7 +16,7 @@ namespace TimeTracker.Services
 
         public bool Delete(Task task)
         {
-            HttpWebRequest request = (HttpWebRequest) WebRequest.Create(TaskEndpoint + task.Id);
+            HttpWebRequest request = (HttpWebRequest) WebRequest.Create(TaskEndpoint + "/" + task.Id);
             request.Method = "DELETE";
 
             var response = (HttpWebResponse) request.GetResponse();
@@ -114,7 +114,7 @@ namespace TimeTracker.Services
         {
             try
             {
-                HttpWebRequest request = (HttpWebRequest) WebRequest.Create(TaskEndpoint + task.Id + "/start");
+                HttpWebRequest request = (HttpWebRequest) WebRequest.Create(TaskEndpoint + "/" + task.Id + "/start");
                 request.Method = "POST";
 
                 var response = (HttpWebResponse) request.GetResponse();
