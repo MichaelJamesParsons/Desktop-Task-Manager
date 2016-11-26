@@ -1,15 +1,19 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using Service;
 using TimeTracker.Models;
+using TimeTracker.Services;
 
 namespace TimeTracker.ViewModels
 {
     class TaskManagerViewModel
     {
         public ObservableCollection<Task> Tasks { get; set; }
+        public ITaskService taskService;
 
-        public TaskManagerViewModel()
+        public TaskManagerViewModel(ITaskService taskService)
         {
+            this.taskService = taskService;
             Tasks = new ObservableCollection<Task>();
 
             Task a = new Task("Task 1 with a long description");

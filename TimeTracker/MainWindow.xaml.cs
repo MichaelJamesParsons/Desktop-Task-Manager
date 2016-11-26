@@ -15,6 +15,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
+using TimeTracker.ViewModels;
 
 namespace TimeTracker
 {
@@ -26,14 +27,12 @@ namespace TimeTracker
         public MainWindow()
         {
             InitializeComponent();
+            DataContext = new MasterViewModel();
             Navigate_ContentViewPort(new Dashboard());
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            var a = 3;
-            var b = 4;
-            var c = a*b;
             if (Math.Abs(rect.Width - 52) < 1)
             {
                 rect.BeginAnimation(StackPanel.WidthProperty, new DoubleAnimation

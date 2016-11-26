@@ -1,6 +1,9 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Media.Animation;
+using Service;
+using TimeTracker.Ioc;
+using TimeTracker.Services;
 using TimeTracker.ViewModels;
 
 namespace TimeTracker
@@ -16,7 +19,7 @@ namespace TimeTracker
         public TaskManager()
         {
             InitializeComponent();
-            DataContext = new TaskManagerViewModel();
+            DataContext = IocKernel.Get<TaskManagerViewModel>();
             _isTrayCollapsed = true;
             _isAnimatingTray = false;
         }
@@ -47,6 +50,11 @@ namespace TimeTracker
 
             _isAnimatingTray = false;
             _isTrayCollapsed = !_isTrayCollapsed;
+        }
+
+        private void OnAddTaskBtnClick(object sender, RoutedEventArgs e)
+        {
+            
         }
     }
 }

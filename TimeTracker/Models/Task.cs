@@ -9,7 +9,7 @@ namespace TimeTracker.Models {
 
     public class Task : INotifyPropertyChanged {
         //Id for task
-        private int id { get; set; }
+        public int Id { get; set; }
 
         //Description of Task
         private string _description;

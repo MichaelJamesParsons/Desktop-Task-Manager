@@ -40,6 +40,10 @@
       <HintPath>..\packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
+    <Reference Include="Ninject, Version=3.2.0.0, Culture=neutral, PublicKeyToken=c7192dc5380945e7, processorArchitecture=MSIL">
+      <HintPath>..\packages\Ninject.3.2.2.0\lib\net45-full\Ninject.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
@@ -62,15 +66,21 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Ioc\IocKernel.cs" />
+    <Compile Include="Ioc\IocResolver.cs" />
     <Compile Include="Models\Task.cs" />
     <Compile Include="Models\TimeEntry.cs" />
     <Compile Include="Properties\Annotations.cs" />
     <Compile Include="ReportsView.xaml.cs">
       <DependentUpon>ReportsView.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Repositories\TaskRepo.cs" />
+    <Compile Include="Services\ITaskService.cs" />
+    <Compile Include="Services\TaskRestService.cs" />
     <Compile Include="TaskManager.xaml.cs">
       <DependentUpon>TaskManager.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ViewModels\MasterViewModel.cs" />
     <Compile Include="ViewModels\TaskManagerViewModel.cs" />
     <Page Include="Dashboard.xaml">
       <SubType>Designer</SubType>
