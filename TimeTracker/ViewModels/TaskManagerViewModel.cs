@@ -36,12 +36,30 @@ namespace TimeTracker.ViewModels
                 OnPropertyChanged();
             }
         }
+
+        private bool _isLoadingTasks;
+
+        public bool IsLoadingTasks
+        {
+            get
+            {
+                return _isLoadingTasks;
+            }
+
+            set
+            {
+                _isLoadingTasks = value;
+                OnPropertyChanged();
+            }
+        }
+
         public ObservableCollection<Task> Tasks { get; set; }
         private readonly ITaskService _taskService;
         private MasterViewModel _masterViewModel;
 
         public TaskManagerViewModel(MasterViewModel masterViewModel, ITaskService taskService)
         {
+            _isLoadingTasks = false;
             _isAddTaskButtonEnabled = true;
             _taskService = taskService;
             _masterViewModel = masterViewModel;

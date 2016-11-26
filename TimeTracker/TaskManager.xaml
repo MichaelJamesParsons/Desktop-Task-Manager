@@ -6,6 +6,7 @@
       xmlns:local="clr-namespace:TimeTracker"
        xmlns:ViewModels="clr-namespace:TimeTracker.ViewModels"
        xmlns:models="clr-namespace:TimeTracker.Models"
+       xmlns:gif="http://wpfanimatedgif.codeplex.com"
        x:Class="TimeTracker.TaskManager"
         mc:Ignorable="d"
        d:DesignHeight="800" d:DesignWidth="800"
@@ -58,11 +59,22 @@
                         </Grid>
                     </StackPanel>
                 </Grid>
+
+
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+
+                    <Image Style="{StaticResource TaskListLoadingIcon}" gif:ImageBehavior.AnimatedSource="assets/windows_8_loader.gif"  />
+                </Grid>
+
                 <ListView x:Name="TasksListView" 
                           ItemsSource="{Binding Tasks}"
                           HorizontalContentAlignment="Stretch"
                           BorderBrush="Transparent"
-                          AlternationCount="2">
+                          AlternationCount="2"
+                          Style="{StaticResource TasksListView}">
 
                     <ListView.ItemContainerStyle>
                         <Style TargetType="ListBoxItem">
