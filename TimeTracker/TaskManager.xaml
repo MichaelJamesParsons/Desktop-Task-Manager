@@ -32,8 +32,8 @@
                                     <ColumnDefinition Width="1*"/>
                                 </Grid.ColumnDefinitions>
 
-                                <TextBox Grid.Column="0" Style="{StaticResource NestedTextInput}"/>
-                                <Button Grid.Row="0" Grid.Column="1" Background="#66a3b9" Foreground="#ffffff" Content="Add" Click="OnAddTaskBtnClick">
+                                <TextBox x:Name="taskDescriptionInput" Grid.Column="0" Style="{StaticResource NestedTextInput}" Text="{Binding TaskDescription}"/>
+                                <Button Grid.Row="0" Grid.Column="1" Background="#66a3b9" Foreground="#ffffff" Content="Add" Command="{Binding AddTaskCommand}">
                                     <Button.FontWeight>
                                         <FontWeight>700</FontWeight>
                                     </Button.FontWeight>

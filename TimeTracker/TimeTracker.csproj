@@ -66,6 +66,12 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Commands\ActionCommand.cs" />
+    <Compile Include="Commands\AsyncActionCommand.cs" />
+    <Compile Include="Commands\AwaitableDelegateCommand.cs" />
+    <Compile Include="Commands\DelegateCommand.cs" />
+    <Compile Include="Commands\IAsyncCommand.cs" />
+    <Compile Include="Commands\IRaiseCanExecuteChanged.cs" />
     <Compile Include="Ioc\IocKernel.cs" />
     <Compile Include="Ioc\IocResolver.cs" />
     <Compile Include="Models\Task.cs" />

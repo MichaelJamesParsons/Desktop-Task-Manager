@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Media.Animation;
-using Service;
 using TimeTracker.Ioc;
-using TimeTracker.Services;
 using TimeTracker.ViewModels;
 
 namespace TimeTracker
@@ -50,11 +48,6 @@ namespace TimeTracker
 
             _isAnimatingTray = false;
             _isTrayCollapsed = !_isTrayCollapsed;
-        }
-
-        private void OnAddTaskBtnClick(object sender, RoutedEventArgs e)
-        {
-            
         }
     }
 }

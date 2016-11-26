@@ -11,7 +11,7 @@ namespace TimeTracker.Services
 {
     class TaskRestService : ITaskService
     {
-        public string TaskEndpoint = @"http://138.197.15.79/task/";
+        public string TaskEndpoint = @"http://138.197.15.79/task";
 
         public bool Delete(Task task)
         {
@@ -122,17 +122,17 @@ namespace TimeTracker.Services
             }
         }
 
-        public void Insert(Task task)
+        public Task Insert(Task task)
         {
             try
             {
-                HttpWebRequest request = (HttpWebRequest) WebRequest.Create(TaskEndpoint + task.Id);
+                HttpWebRequest request = (HttpWebRequest) WebRequest.Create(TaskEndpoint);
                 request.Method = "POST";
                 request.ContentType = "application/json";
 
                 var jsonToSend = JsonConvert.SerializeObject(new
                 {
-                    tasks = task
+                    description = task.Description
                 });
 
                 using (var streamWriter = new StreamWriter(request.GetRequestStream()))
@@ -143,6 +143,7 @@ namespace TimeTracker.Services
                 var response = (HttpWebResponse) request.GetResponse();
                 var jsonString = (new StreamReader(response.GetResponseStream())).ReadToEnd();
                 var jsonResponse = JObject.Parse(jsonString);
+                return JsonConvert.DeserializeObject<Task>(jsonString);
             }
             catch (Exception e)
             {

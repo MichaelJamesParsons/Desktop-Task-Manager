@@ -7,7 +7,7 @@ namespace TimeTracker.Services
     {
         Task Find(int id);
         List<Task> GetAll();
-        void Insert(Task task);
+        Task Insert(Task task);
         void Update(Task task);
         bool Delete(Task task);
         List<Task> GetAllRunning();
