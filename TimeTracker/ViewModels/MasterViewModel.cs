@@ -1,10 +1,26 @@
-﻿using System.Threading.Tasks;
+﻿using System.Windows.Input;
+using TimeTracker.Commands;
+using TimeTracker.Models;
 
 namespace TimeTracker.ViewModels
 {
-    class MasterViewModel
+    class MasterViewModel : BaseViewModel
     {
-        private Task ActiveTask { get; set; }
+        private Task _activeTask;
+
+        public Task ActiveTask
+        {
+            get
+            {
+                return _activeTask;
+            }
+
+            set
+            {
+                _activeTask = value;
+                OnPropertyChanged();
+            }
+        }
 
         public bool IsActiveTask(Task t)
         {

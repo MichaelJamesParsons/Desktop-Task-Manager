@@ -15,111 +15,69 @@ namespace TimeTracker.Services
 
         public bool Delete(Task task)
         {
-            try
-            {
-                HttpWebRequest request = (HttpWebRequest) WebRequest.Create(TaskEndpoint + task.Id);
-                request.Method = "DELETE";
+            HttpWebRequest request = (HttpWebRequest) WebRequest.Create(TaskEndpoint + task.Id);
+            request.Method = "DELETE";
 
-                var response = (HttpWebResponse) request.GetResponse();
-                var jsonString = (new StreamReader(response.GetResponseStream())).ReadToEnd();
-                var jsonResponse = JObject.Parse(jsonString);
+            var response = (HttpWebResponse) request.GetResponse();
+            var jsonString = (new StreamReader(response.GetResponseStream())).ReadToEnd();
+            var jsonResponse = JObject.Parse(jsonString);
                 
-                return JsonConvert.DeserializeObject<DeleteResponse>(jsonString).success;
-            }
-            catch (Exception e)
-            {
-                throw e;
-            }
+            return JsonConvert.DeserializeObject<DeleteResponse>(jsonString).success;
         }
 
         public Task Find(int id)
         {
-            try
-            {
-                HttpWebRequest request = (HttpWebRequest) WebRequest.Create(TaskEndpoint + id);
-                request.Method = "GET";
+            HttpWebRequest request = (HttpWebRequest) WebRequest.Create(TaskEndpoint + id);
+            request.Method = "GET";
 
-                var response = (HttpWebResponse) request.GetResponse();
-                var jsonString = (new StreamReader(response.GetResponseStream())).ReadToEnd();
+            var response = (HttpWebResponse) request.GetResponse();
+            var jsonString = (new StreamReader(response.GetResponseStream())).ReadToEnd();
 
-                return JsonConvert.DeserializeObject<Task>(jsonString);
-            }
-            catch (Exception e)
-            {
-                throw e;
-            }
+            return JsonConvert.DeserializeObject<Task>(jsonString);
         }
 
         public List<Task> GetAll()
         {
-            try
-            {
-                HttpWebRequest request = (HttpWebRequest) WebRequest.Create(TaskEndpoint + "all/");
-                request.Method = "GET";
+            HttpWebRequest request = (HttpWebRequest) WebRequest.Create(TaskEndpoint + "all/");
+            request.Method = "GET";
 
-                var response = (HttpWebResponse) request.GetResponse();
-                var json = JObject.Parse((new StreamReader(response.GetResponseStream())).ReadToEnd());
+            var response = (HttpWebResponse) request.GetResponse();
+            var json = JObject.Parse((new StreamReader(response.GetResponseStream())).ReadToEnd());
 
-                return ((JArray) json.GetValue("tasks")).ToObject<List<Task>>();
-            }
-            catch (Exception e)
-            {
-                throw e;
-            }
+            return ((JArray) json.GetValue("tasks")).ToObject<List<Task>>();
         }
 
         public List<Task> GetAllRunning()
         {
-            try
-            {
-                HttpWebRequest request = (HttpWebRequest) WebRequest.Create(TaskEndpoint + "running/");
-                request.Method = "GET";
+            HttpWebRequest request = (HttpWebRequest) WebRequest.Create(TaskEndpoint + "running/");
+            request.Method = "GET";
 
-                var response = (HttpWebResponse) request.GetResponse();
-                var json = JObject.Parse((new StreamReader(response.GetResponseStream())).ReadToEnd());
+            var response = (HttpWebResponse) request.GetResponse();
+            var json = JObject.Parse((new StreamReader(response.GetResponseStream())).ReadToEnd());
 
-                return ((JArray) json.GetValue("tasks")).ToObject<List<Task>>();
-            }
-            catch (Exception e)
-            {
-                throw e;
-            }
+            return ((JArray) json.GetValue("tasks")).ToObject<List<Task>>();
         }
 
         public List<Task> GetAllStopped()
         {
-            try
-            {
-                HttpWebRequest request = (HttpWebRequest) WebRequest.Create(TaskEndpoint + "stopped/");
-                request.Method = "GET";
+            HttpWebRequest request = (HttpWebRequest) WebRequest.Create(TaskEndpoint + "stopped/");
+            request.Method = "GET";
 
-                var response = (HttpWebResponse) request.GetResponse();
-                var json = JObject.Parse((new StreamReader(response.GetResponseStream())).ReadToEnd());
+            var response = (HttpWebResponse) request.GetResponse();
+            var json = JObject.Parse((new StreamReader(response.GetResponseStream())).ReadToEnd());
 
-                return ((JArray) json.GetValue("tasks")).ToObject<List<Task>>();
-            }
-            catch (Exception e)
-            {
-                throw e;
-            }
+            return ((JArray) json.GetValue("tasks")).ToObject<List<Task>>();
         }
 
         public List<TimeEntry> GetAllTimeEntries(Task task)
         {
-            try
-            {
-                HttpWebRequest request = (HttpWebRequest) WebRequest.Create(TaskEndpoint + task.Id + "/timeentries");
-                request.Method = "GET";
+            HttpWebRequest request = (HttpWebRequest) WebRequest.Create(TaskEndpoint + task.Id + "/timeentries");
+            request.Method = "GET";
 
-                var response = (HttpWebResponse) request.GetResponse();
-                var json = JObject.Parse((new StreamReader(response.GetResponseStream())).ReadToEnd());
+            var response = (HttpWebResponse) request.GetResponse();
+            var json = JObject.Parse((new StreamReader(response.GetResponseStream())).ReadToEnd());
 
-                return ((JArray) json.GetValue("time_entries")).ToObject<List<TimeEntry>>();
-            }
-            catch (Exception e)
-            {
-                throw e;
-            }
+            return ((JArray) json.GetValue("time_entries")).ToObject<List<TimeEntry>>();
         }
 
         public Task Insert(Task task)
@@ -191,30 +149,23 @@ namespace TimeTracker.Services
 
         public void Update(Task task)
         {
-            try
+            HttpWebRequest request = (HttpWebRequest) WebRequest.Create(TaskEndpoint + task.Id);
+            request.Method = "PATCH";
+            request.ContentType = "application/json";
+
+            var json_to_send = JsonConvert.SerializeObject(new
             {
-                HttpWebRequest request = (HttpWebRequest) WebRequest.Create(TaskEndpoint + task.Id);
-                request.Method = "PATCH";
-                request.ContentType = "application/json";
+                tasks = task
+            });
 
-                var json_to_send = JsonConvert.SerializeObject(new
-                {
-                    tasks = task
-                });
-
-                using (var streamWriter = new StreamWriter(request.GetRequestStream()))
-                {
-                    streamWriter.Write(json_to_send);
-                }
-
-                var response = (HttpWebResponse) request.GetResponse();
-                var jsonString = (new StreamReader(response.GetResponseStream())).ReadToEnd();
-                var jsonResponse = JObject.Parse(jsonString);
-            }
-            catch (Exception e)
+            using (var streamWriter = new StreamWriter(request.GetRequestStream()))
             {
-                throw e;
+                streamWriter.Write(json_to_send);
             }
+
+            var response = (HttpWebResponse) request.GetResponse();
+            var jsonString = (new StreamReader(response.GetResponseStream())).ReadToEnd();
+            var jsonResponse = JObject.Parse(jsonString);
         }
     }
 }

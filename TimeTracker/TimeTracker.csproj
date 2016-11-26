@@ -86,6 +86,7 @@
     <Compile Include="TaskManager.xaml.cs">
       <DependentUpon>TaskManager.xaml</DependentUpon>
     </Compile>
+    <Compile Include="ViewModels\BaseViewModel.cs" />
     <Compile Include="ViewModels\MasterViewModel.cs" />
     <Compile Include="ViewModels\TaskManagerViewModel.cs" />
     <Page Include="Dashboard.xaml">

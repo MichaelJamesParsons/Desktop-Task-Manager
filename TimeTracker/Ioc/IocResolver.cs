@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using Ninject.Modules;
 using Service;
 using TimeTracker.Services;
+using TimeTracker.ViewModels;
 
 namespace TimeTracker.Ioc
 {
@@ -14,6 +15,7 @@ namespace TimeTracker.Ioc
         public override void Load()
         {
             Bind<ITaskService>().To<TaskRestService>().InSingletonScope();
+            Bind<MasterViewModel>().To<MasterViewModel>().InSingletonScope();
         }
     }
 }

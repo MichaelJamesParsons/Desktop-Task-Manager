@@ -15,6 +15,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Windows.Threading;
+using TimeTracker.Ioc;
 using TimeTracker.ViewModels;
 
 namespace TimeTracker
@@ -27,7 +28,7 @@ namespace TimeTracker
         public MainWindow()
         {
             InitializeComponent();
-            DataContext = new MasterViewModel();
+            DataContext = IocKernel.Get<MasterViewModel>();
             Navigate_ContentViewPort(new Dashboard());
         }
 

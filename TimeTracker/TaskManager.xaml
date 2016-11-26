@@ -105,7 +105,7 @@
                                     <ColumnDefinition Width="Auto" />
                                 </Grid.ColumnDefinitions>
 
-                                <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding Description}" Style="{StaticResource TaskListItemLabel}" />
+                                <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding Description}" Style="{StaticResource TaskListItemLabel}" TextWrapping="Wrap" />
                                 <TextBlock  Grid.Row="0" 
                                             Grid.Column="1" 
                                             Text="{Binding Duration, FallbackValue=0Hrs 0 Min 0 Sec, StringFormat=\{0:hh\} hrs \{0:mm\} min \{0:ss\} sec}" 
@@ -114,7 +114,10 @@
                                     <Button Style="{StaticResource TasksListControlBtn}">
                                         <Image Source="assets/win10_play_icon.png" Width="24" Height="24"></Image>
                                     </Button>
-                                    <Button Style="{StaticResource TasksListControlBtn}">
+                                    <Button Style="{StaticResource TasksListControlBtn}" 
+                                            Command="{Binding RelativeSource={RelativeSource FindAncestor, 
+                                                        AncestorType={x:Type Page}}, Path=DataContext.RemoveTaskCommand}" 
+                                            CommandParameter="{Binding}">
                                         <Image Source="assets/win10_pause_icon.png" Width="24" Height="24"></Image>
                                     </Button>
                                 </StackPanel>
