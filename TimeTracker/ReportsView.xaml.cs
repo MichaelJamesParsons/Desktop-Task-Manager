@@ -12,6 +12,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using TimeTracker.Ioc;
+using TimeTracker.ViewModels;
 
 namespace TimeTracker
 {
@@ -23,6 +25,7 @@ namespace TimeTracker
         public ReportsView()
         {
             InitializeComponent();
+            DataContext = IocKernel.Get<ReportsViewModel>();
         }
     }
 }
