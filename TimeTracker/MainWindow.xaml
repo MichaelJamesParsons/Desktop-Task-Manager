@@ -19,7 +19,7 @@
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
-        <StackPanel Name="rect" Grid.Row="0" Grid.Column="0" Background="#e1e1e1">
+        <StackPanel Name="rect" Grid.Row="0" Grid.Column="0" Background="#e1e1e1" Width="200">
             <Button Style="{StaticResource SidebarNavItem}" 
                     VerticalAlignment="Top"
                     HorizontalAlignment="Left"
