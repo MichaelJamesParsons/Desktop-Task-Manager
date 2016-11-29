@@ -90,7 +90,13 @@ namespace TimeTracker.ViewModels
         void timer_Tick(object sender, EventArgs e)
         {
             Timer = GetTime();
-            Console.WriteLine("Tick: " + GetTime());
+
+            if (_activeTask != null)
+            {
+                ActiveTask.TimeString = Timer;
+            }
+
+            Console.WriteLine("Tick: " + Timer);
         }
 
         public void SetActiveTask(Task task)
@@ -105,16 +111,9 @@ namespace TimeTracker.ViewModels
         private void OnActiveTaskStartComplete(Task<TimeEntry> asyncTask, Task task)
         {
             ActiveTask = task;
-            _activeTimeEntry = asyncTask.Result;
+            ActiveTimeEntry = asyncTask.Result;
+            Timer = GetTime();
             IsFooterTrayVisible = true;
-        }
-
-        public void SetActiveTask(Task task, Action<System.Threading.Tasks.Task> callback)
-        {
-            /*if (ActiveTask != null)
-            {
-                EndActiveTask(callback);
-            }*/
         }
 
         public void EndActiveTask(Action<System.Threading.Tasks.Task> callback)
@@ -163,10 +162,7 @@ namespace TimeTracker.ViewModels
                 str += time.Minutes + " min ";
             }
 
-            if (time.Minutes > 0)
-            {
-                str += time.Seconds + " sec";
-            }
+            str += time.Seconds + " sec";
 
             return str;
         }

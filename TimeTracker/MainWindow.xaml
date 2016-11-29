@@ -19,8 +19,6 @@
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
-        <!--<Rectangle Name="rect" Width="300" VerticalAlignment="Stretch" Fill="#e1e1e1" Visibility="Visible" HorizontalAlignment="Left" />-->
-
         <StackPanel Name="rect" Grid.Row="0" Grid.Column="0" Background="#e1e1e1">
             <Button Style="{StaticResource SidebarNavItem}" 
                     VerticalAlignment="Top"
@@ -70,32 +68,7 @@
         </StackPanel>
 
         <Frame x:Name="contentViewPort" Grid.Column="1" NavigationUIVisibility="Hidden"></Frame>
-        
 
-
-        <!--<StackPanel Grid.Column="1" Background="#000000">
-           
-            <StackPanel Orientation="Horizontal">
-                <TextBlock Margin="10 0 0 0">Time</TextBlock>
-                <TextBlock Margin="10 0 0 0">Tracker</TextBlock>
-            </StackPanel>
-        </StackPanel>-->
-
-
-        <!--<Grid ZIndex="100" Grid.Row="1">
-            <Grid.Background>
-                <SolidColorBrush Opacity="0.95" Color="#216897"/>
-            </Grid.Background>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="*" />
-                <ColumnDefinition Width="Auto" />
-            </Grid.ColumnDefinitions>
-            <TextBlock Grid.Column="0">Lorem ipsum dolor sit amet, consectetur adipiscing elit.</TextBlock>
-            <StackPanel Orientation="Horizontal">
-                <Button>Test</Button>
-            </StackPanel>
-        </Grid>-->
-        
 
         <Grid x:Name="FooterTray" ZIndex="100" Grid.Row="1" Grid.ColumnSpan="2">
             <Grid.Background>
