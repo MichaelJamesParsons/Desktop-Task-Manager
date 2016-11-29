@@ -135,6 +135,14 @@ namespace TimeTracker.ViewModels
         private void OnRemoveTaskComplete(Task<bool> asyncTask, Task task)
         {
             RemoveTask(task);
+
+            if (_masterViewModel.ActiveTask != null && task.Id == _masterViewModel.ActiveTask.Id)
+            {
+                _masterViewModel.EndActiveTask(t =>
+                {
+                    //do nothing
+                });
+            }
         }
 
         /// <summary>

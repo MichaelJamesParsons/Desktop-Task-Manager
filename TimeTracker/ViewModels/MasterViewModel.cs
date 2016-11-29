@@ -4,6 +4,7 @@ using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Threading;
 using TimeTracker.Annotations;
+using TimeTracker.Commands;
 using TimeTracker.Models;
 using TimeTracker.Services;
 using Task = TimeTracker.Models.Task;
@@ -89,6 +90,7 @@ namespace TimeTracker.ViewModels
         void timer_Tick(object sender, EventArgs e)
         {
             Timer = GetTime();
+            Console.WriteLine("Tick: " + GetTime());
         }
 
         public void SetActiveTask(Task task)
@@ -117,17 +119,27 @@ namespace TimeTracker.ViewModels
 
         public void EndActiveTask(Action<System.Threading.Tasks.Task> callback)
         {
-            var asyncTask = System.Threading.Tasks.Task.Run(() => _taskService.StartTask(ActiveTask));
-
-            asyncTask.ContinueWith((t) =>
+            try
             {
-                OnEndActiveTaskComplete(t, callback);
-            }, TaskScheduler.FromCurrentSynchronizationContext());
+                var asyncTask = System.Threading.Tasks.Task.Run(() => _taskService.StopTask(ActiveTask));
+
+                asyncTask.ContinueWith((t) =>
+                {
+                    OnEndActiveTaskComplete(t, callback);
+                }, TaskScheduler.FromCurrentSynchronizationContext());
+            }
+            catch (Exception e)
+            {
+                ActiveTask = null;
+                ActiveTimeEntry = null;
+            }
         }
 
         private void OnEndActiveTaskComplete(Task<TimeEntry> asyncTask, Action<System.Threading.Tasks.Task> callback)
         {
             callback(asyncTask);
+            ActiveTask = null;
+            ActiveTimeEntry = null;
         }
 
         public string GetTime()
@@ -137,7 +149,7 @@ namespace TimeTracker.ViewModels
                 return "";
             }
 
-            var totalSeconds = _activeTask.CalculateSpan().TotalSeconds + (DateTime.Now - _activeTimeEntry.StartTime).TotalSeconds;
+            var totalSeconds = (DateTime.Now - _activeTimeEntry.Start).TotalSeconds;
             var time = TimeSpan.FromSeconds(totalSeconds);
             var str = "";
 
@@ -157,6 +169,20 @@ namespace TimeTracker.ViewModels
             }
 
             return str;
+        }
+        
+        public ICommand StopTaskCommand
+        {
+            get
+            {
+                return new ActionCommand(o =>
+                {
+                    EndActiveTask(t =>
+                    {
+                        //do nothing
+                    });
+                }, o => true);
+            }
         }
     }
 }

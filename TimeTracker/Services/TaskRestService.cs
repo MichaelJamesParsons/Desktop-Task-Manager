@@ -131,9 +131,7 @@ namespace TimeTracker.Services
 
         public TimeEntry StopTask(Task task)
         {
-            try
-            {
-                HttpWebRequest request = (HttpWebRequest) WebRequest.Create(TaskEndpoint + task.Id + "/stop");
+                HttpWebRequest request = (HttpWebRequest) WebRequest.Create(TaskEndpoint + "/" + task.Id + "/stop");
                 request.Method = "POST";
 
                 var response = (HttpWebResponse) request.GetResponse();
@@ -141,11 +139,6 @@ namespace TimeTracker.Services
                 var json_response = JObject.Parse(json_string);
 
                 return JsonConvert.DeserializeObject<TimeEntry>(json_string);
-            }
-            catch (Exception e)
-            {
-                throw e;
-            }
         }
 
         public void Update(Task task)

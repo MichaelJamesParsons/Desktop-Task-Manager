@@ -155,6 +155,9 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Resource Include="assets\win10_delete_icon_black.png" />
+    <Resource Include="assets\win10_delete_icon_white.png" />
+    <Resource Include="assets\win10_stop_icon.png" />
     <Resource Include="assets\windows_8_loader.gif" />
     <Resource Include="assets\win10_pause_icon.png" />
     <Resource Include="assets\win10_play_icon.png" />

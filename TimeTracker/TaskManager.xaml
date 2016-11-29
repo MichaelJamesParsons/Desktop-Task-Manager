@@ -133,7 +133,7 @@
                                             Command="{Binding RelativeSource={RelativeSource FindAncestor, 
                                                         AncestorType={x:Type Page}}, Path=DataContext.RemoveTaskCommand}" 
                                             CommandParameter="{Binding}">
-                                        <Image Source="assets/win10_pause_icon.png" Width="24" Height="24"></Image>
+                                        <Image Source="assets/win10_delete_icon_black.png" Width="24" Height="24"></Image>
                                     </Button>
                                 </StackPanel>
                             </Grid>

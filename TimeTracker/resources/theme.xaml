@@ -64,7 +64,33 @@
         <Setter Property="HorizontalContentAlignment" Value="Left"/>
         <Setter Property="Template">
             <Setter.Value>
+
                 <ControlTemplate TargetType="{x:Type Button}">
+                    <ControlTemplate.Triggers>
+                        <EventTrigger RoutedEvent="MouseEnter">
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <ColorAnimation From="Transparent" 
+                                                        To="#2C8AC9" 
+                                                        Duration="0:0:0" 
+                                                        Storyboard.TargetName="Border" 
+                                                        Storyboard.TargetProperty="Background.Color"/>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                        <EventTrigger RoutedEvent="MouseLeave">
+                            <BeginStoryboard>
+                                <Storyboard>
+                                    <ColorAnimation From="#287FB8" 
+                                                        To="Transparent" 
+                                                        Duration="0:0:0" 
+                                                        Storyboard.TargetName="Border" 
+                                                        Storyboard.TargetProperty="Background.Color"/>
+                                </Storyboard>
+                            </BeginStoryboard>
+                        </EventTrigger>
+                    </ControlTemplate.Triggers>
+                    
                     <Border Name="Border" 
                                 CornerRadius="0" 
                                 BorderThickness="0" 
@@ -164,9 +190,8 @@
     <Style x:Key="TaskListItemLabel" TargetType="{x:Type TextBlock}">
         <Setter Property="FontSize" Value="14"></Setter>
         <Setter Property="FontWeight" Value="400"></Setter>
-        <Setter Property="Margin" Value="0,16,0,0"></Setter>
+        <Setter Property="Margin" Value="0,16, 15,0"></Setter>
     </Style>
-
 
     <!-- Tasks list control buttons -->
     <Style x:Key="TasksListControlBtn" TargetType="Button">

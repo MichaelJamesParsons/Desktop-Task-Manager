@@ -95,8 +95,6 @@
                 <Button>Test</Button>
             </StackPanel>
         </Grid>-->
-
-
         
 
         <Grid x:Name="FooterTray" ZIndex="100" Grid.Row="1" Grid.ColumnSpan="2">
@@ -109,13 +107,11 @@
             </Grid.ColumnDefinitions>
             <TextBlock Grid.Column="0" Text="{Binding ActiveTask.Description}" Style="{StaticResource TrayTaskLabel}"></TextBlock>
             <StackPanel Orientation="Horizontal" Grid.Column="1">
-                <Button Style="{StaticResource TrayControlItem}">
-                    <Image Source="assets/win10_play_icon.png" Width="24" Height="24"></Image>
-                </Button>
-                <Button Style="{StaticResource TrayControlItem}">
-                    <Image Source="assets/win10_pause_icon.png" Width="24" Height="24"></Image>
-                </Button>
                 <TextBlock Style="{StaticResource TrayTimer}" Text="{Binding Timer}"></TextBlock>
+                
+                <Button Style="{StaticResource TrayControlItem}" Command="{Binding StopTaskCommand}">
+                    <Image Source="assets/win10_delete_icon_white.png" Width="24" Height="24"></Image>
+                </Button>
             </StackPanel>
         </Grid>
 

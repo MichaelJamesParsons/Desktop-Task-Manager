@@ -6,18 +6,23 @@ namespace TimeTracker.Models {
         public int Id { get; }
 
         //Start Time for Time Entry
-        public DateTime StartTime { get; set; }
+        public DateTime Start { get; set; }
 
         //End Time for Time Entry
-        public DateTime EndTime { get; set; }
+        public DateTime? End { get; set; }
 
         /// <summary>
-        /// Calculated Via EndTime - StartTime
+        /// Calculated Via EndTime - Start
         /// </summary>
         public TimeSpan TimeElapsed {
             get
             {
-                return EndTime - StartTime;
+                if (Start == null || End == null)
+                {
+                    return new TimeSpan();
+                }
+
+                return (TimeSpan)(End - Start);
             }
         }
 
@@ -30,21 +35,25 @@ namespace TimeTracker.Models {
         /// <param name="id"></param>
         public TimeEntry(int taskId) {
             this.TaskId = taskId;
+            
         }
-        public TimeEntry() { }
+
+        public TimeEntry()
+        {
+        }
 
         /// <summary>
-        /// Initializes or increments StartTime with "time"
+        /// Initializes or increments Start with "time"
         /// </summary>
-        public void Start() {
-            StartTime = new DateTime();
+        public void StartTimer() {
+            Start = new DateTime();
         }
 
         /// <summary>
         /// Initializes or increments EndTime with "time"
         /// </summary>
-        public void End() {
-            EndTime = new DateTime();
+        public void EndTimer() {
+            End = new DateTime();
         }
     }
 }
