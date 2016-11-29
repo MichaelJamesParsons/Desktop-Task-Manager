@@ -129,16 +129,21 @@ namespace TimeTracker.ViewModels
             }
             catch (Exception e)
             {
-                ActiveTask = null;
-                ActiveTimeEntry = null;
+                ResetActiveTask();
             }
         }
 
         private void OnEndActiveTaskComplete(Task<TimeEntry> asyncTask, Action<System.Threading.Tasks.Task> callback)
         {
             callback(asyncTask);
+            ResetActiveTask();
+        }
+
+        private void ResetActiveTask()
+        {
             ActiveTask = null;
             ActiveTimeEntry = null;
+            IsFooterTrayVisible = false;
         }
 
         public string GetTime()

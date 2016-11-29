@@ -62,6 +62,7 @@
         <Setter Property="BorderThickness" Value="0" />
         <Setter Property="HorizontalAlignment" Value="Stretch"/>
         <Setter Property="HorizontalContentAlignment" Value="Left"/>
+        <Setter Property="Visibility" Value="Visible"/>
         <Setter Property="Template">
             <Setter.Value>
 
@@ -89,6 +90,9 @@
                                 </Storyboard>
                             </BeginStoryboard>
                         </EventTrigger>
+                        <DataTrigger Binding="{Binding IsFooterTrayVisible}" Value="False">
+                            <Setter Property="Visibility" Value="Collapsed"/>
+                        </DataTrigger>
                     </ControlTemplate.Triggers>
                     
                     <Border Name="Border" 
