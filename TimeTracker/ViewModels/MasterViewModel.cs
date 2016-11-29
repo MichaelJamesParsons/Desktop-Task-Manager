@@ -167,7 +167,14 @@ namespace TimeTracker.ViewModels
                 str += time.Minutes + " min ";
             }
 
-            str += time.Seconds + " sec";
+            if (time.Seconds > 0)
+            {
+                str += time.Seconds + " sec";
+            }
+            else
+            {
+                str += "0 sec";
+            }
 
             return str;
         }
