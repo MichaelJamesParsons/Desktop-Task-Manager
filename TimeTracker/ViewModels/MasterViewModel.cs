@@ -81,15 +81,14 @@ namespace TimeTracker.ViewModels
 
         private void InitializeTimer()
         {
-            DispatcherTimer timer = new DispatcherTimer();
-            timer.Interval = TimeSpan.FromSeconds(1);
+            var timer = new DispatcherTimer {Interval = TimeSpan.FromSeconds(1)};
             timer.Tick += timer_Tick;
             timer.Start();
         }
 
         void timer_Tick(object sender, EventArgs e)
         {
-            Timer = GetTime();
+            Timer = GetTime(_activeTask, _activeTimeEntry);
 
             if (_activeTask != null)
             {
@@ -112,7 +111,7 @@ namespace TimeTracker.ViewModels
         {
             ActiveTask = task;
             ActiveTimeEntry = asyncTask.Result;
-            Timer = GetTime();
+            Timer = GetTime(ActiveTask, ActiveTimeEntry);
             IsFooterTrayVisible = true;
         }
 
@@ -146,14 +145,24 @@ namespace TimeTracker.ViewModels
             IsFooterTrayVisible = false;
         }
 
-        public string GetTime()
+        public string GetTime(Task t, TimeEntry activeTimeEntry)
         {
-            if (_activeTask == null || _activeTimeEntry == null)
+            if (t == null)
             {
                 return "";
             }
 
-            var totalSeconds = (DateTime.Now - _activeTimeEntry.Start).TotalSeconds;
+            TimeSpan timeDifference;
+            if (activeTimeEntry == null)
+            {
+                timeDifference = new TimeSpan();
+            }
+            else
+            {
+                timeDifference = DateTime.Now - activeTimeEntry.Start;
+            }
+
+            var totalSeconds = (timeDifference + t.CalculateSpan()).TotalSeconds;
             var time = TimeSpan.FromSeconds(totalSeconds);
             var str = "";
 

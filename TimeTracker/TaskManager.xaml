@@ -120,7 +120,7 @@
                                 <TextBlock Grid.Row="0" Grid.Column="0" Text="{Binding Description}" Style="{StaticResource TaskListItemLabel}" TextWrapping="Wrap" />
                                 <TextBlock  Grid.Row="0" 
                                             Grid.Column="1" 
-                                            Text="{Binding Duration, FallbackValue=0Hrs 0 Min 0 Sec, StringFormat=\{0:hh\} hrs \{0:mm\} min \{0:ss\} sec}" 
+                                            Text="{Binding TimeString}" 
                                             Style="{StaticResource TaskListItemLabel}"/>
                                 <StackPanel Orientation="Horizontal" Grid.Column="2">
                                     <Button Style="{StaticResource TasksListControlBtn}" 

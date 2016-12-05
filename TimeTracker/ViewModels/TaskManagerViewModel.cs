@@ -177,6 +177,12 @@ namespace TimeTracker.ViewModels
 
             foreach (var t in tasksToAdd)
             {
+                t.TimeString = _masterViewModel.GetTime(t, null);
+                if (_masterViewModel.ActiveTask != null && _masterViewModel.ActiveTask.Id == t.Id)
+                {
+                    _masterViewModel.ActiveTask = t;
+                }
+
                 Tasks.Add(t);
             }
 
