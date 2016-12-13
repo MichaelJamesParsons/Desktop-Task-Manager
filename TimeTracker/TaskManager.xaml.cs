@@ -27,7 +27,7 @@ namespace TimeTracker
             if (_isAnimatingTray) return;
             _isAnimatingTray = true;
 
-            if (_isTrayCollapsed)
+            /*if (_isTrayCollapsed)
             {
                 TaskTrayOptions.BeginAnimation(HeightProperty, new DoubleAnimation
                 {
@@ -44,7 +44,7 @@ namespace TimeTracker
                     To = 0,
                     Duration = TimeSpan.FromMilliseconds(300)
                 });
-            }
+            }*/
 
             _isAnimatingTray = false;
             _isTrayCollapsed = !_isTrayCollapsed;

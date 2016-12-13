@@ -92,6 +92,11 @@ namespace TimeTracker.ViewModels
         /// <param name="asyncTask"></param>
         private void OnAddTaskComplete(Task<Task> asyncTask)
         {
+            if (asyncTask == null)
+            {
+                return;
+            }
+
             Tasks.Insert(0, asyncTask.Result);
             TaskDescription = "";
             IsAddTaskButtonEnabled = true;
@@ -138,10 +143,11 @@ namespace TimeTracker.ViewModels
 
             if (_masterViewModel.ActiveTask != null && task.Id == _masterViewModel.ActiveTask.Id)
             {
-                _masterViewModel.EndActiveTask(t =>
+                _masterViewModel.ResetActiveTask();
+                /*_masterViewModel.EndActiveTask(t =>
                 {
                     //do nothing
-                });
+                });*/
             }
         }
 

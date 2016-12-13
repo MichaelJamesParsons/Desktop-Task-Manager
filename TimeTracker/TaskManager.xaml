@@ -42,7 +42,7 @@
                             </Grid>
                         </Border>
 
-                        <Grid Margin="0, 0, 0, 20">
+                        <!--<Grid Margin="0, 0, 0, 20">
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="*"/>
                                 <RowDefinition Height="*"/>
@@ -56,7 +56,7 @@
                             <StackPanel x:Name="TaskTrayOptions" Grid.Row="1" Orientation="Vertical" Height="0">
                                 <TextBlock Style="{StaticResource FormFieldLabel}"><Run Text="Description"/></TextBlock>
                             </StackPanel>
-                        </Grid>
+                        </Grid>-->
                     </StackPanel>
                 </Grid>
 

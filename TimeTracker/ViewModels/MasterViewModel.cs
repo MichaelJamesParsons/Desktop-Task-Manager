@@ -94,12 +94,15 @@ namespace TimeTracker.ViewModels
             {
                 ActiveTask.TimeString = Timer;
             }
-
-            Console.WriteLine("Tick: " + Timer);
         }
 
         public void SetActiveTask(Task task)
         {
+            if (task == ActiveTask)
+            {
+                return;
+            }
+
             var asyncTask = System.Threading.Tasks.Task.Run(() => _taskService.StartTask(task));
             asyncTask.ContinueWith((t) =>
             {
@@ -138,7 +141,7 @@ namespace TimeTracker.ViewModels
             ResetActiveTask();
         }
 
-        private void ResetActiveTask()
+        public void ResetActiveTask()
         {
             ActiveTask = null;
             ActiveTimeEntry = null;

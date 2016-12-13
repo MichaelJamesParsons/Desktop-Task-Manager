@@ -106,7 +106,7 @@ namespace TimeTracker.Services
             }
             catch (Exception e)
             {
-                throw e;
+                return null;
             }
         }
 

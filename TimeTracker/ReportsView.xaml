@@ -10,8 +10,22 @@
       Title="ReportsView">
 
     <Grid Background="White">
-        <TextBlock x:Name="PageTitle" Style="{StaticResource PageTitle}">Reports</TextBlock>
+        <TextBlock x:Name="PageTitle" Grid.Row="0" Style="{StaticResource PageTitle}">Reports</TextBlock>
 
-        <wpf:CartesianChart Series="{Binding WeeklyActivityChart}" Height="300" />
+        <TextBlock Grid.Row="0" Style="{StaticResource PageTitle}" Margin="25,83,0,0" FontSize="18">Tasks This Week</TextBlock>
+        <StackPanel Margin="30, 120, 30, 30">
+
+            <!--<wpf:CartesianChart Series="{Binding SeriesCollection}" LegendLocation="Left" Height="300">
+                <wpf:CartesianChart.AxisX>
+                    <wpf:Axis Title="Salesman" Labels="{Binding Labels}"></wpf:Axis>
+                </wpf:CartesianChart.AxisX>
+                
+                <wpf:CartesianChart.AxisY>
+                    <wpf:Axis Title="Sold Apps" LabelFormatter="{Binding Formatter}"></wpf:Axis>
+                </wpf:CartesianChart.AxisY>
+            </wpf:CartesianChart>-->
+            <wpf:CartesianChart Series="{Binding WeeklyActivityChart}" Height="300" />
+        </StackPanel>
+
     </Grid>
 </Page>
