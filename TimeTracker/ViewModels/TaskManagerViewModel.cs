@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Threading.Tasks;
 using System.Windows.Input;
@@ -201,6 +202,21 @@ namespace TimeTracker.ViewModels
                     _masterViewModel.SetActiveTask(task);
                     
                 }, o => true);
+            }
+        }
+
+        public ICommand PauseTaskCommand
+        {
+            get
+            {
+                return new ActionCommand(obj =>
+                {
+                    var task = (Task) obj;
+                    _masterViewModel.EndActiveTask(t =>
+                    {
+                        // Do nothing.
+                    });
+                }, i => true);
             }
         }
 

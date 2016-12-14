@@ -141,7 +141,7 @@
                                     <Button Style="{StaticResource TasksListControlBtn}"
                                             Visibility="{Binding IsActive, Converter={StaticResource BoolToVis}}"
                                             Command="{Binding RelativeSource={RelativeSource FindAncestor, 
-                                                        AncestorType={x:Type Page}}, Path=DataContext.StartTaskCommand}"
+                                                        AncestorType={x:Type Page}}, Path=DataContext.PauseTaskCommand}"
                                             CommandParameter="{Binding}">
                                         <Image Source="assets/win10_pause_icon.png" Width="24" Height="24"></Image>
                                     </Button>
