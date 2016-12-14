@@ -211,7 +211,6 @@ namespace TimeTracker.ViewModels
             {
                 return new ActionCommand(obj =>
                 {
-                    var task = (Task) obj;
                     _masterViewModel.EndActiveTask(t =>
                     {
                         // Do nothing.

@@ -18,7 +18,7 @@
         </StackPanel>
         <Grid.Background>
             <ImageBrush Stretch="UniformToFill"
-                    ImageSource="C:\Users\mjayp\OneDrive\Documents\Visual Studio 2015\Projects\TimeTracker\TimeTracker\assets\dashboard_content_bg.png"/>
+                    ImageSource="{StaticResource DashboardSplashImage}"/>
         </Grid.Background>
     </Grid>
 </Page>

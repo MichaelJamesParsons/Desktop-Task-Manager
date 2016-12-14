@@ -4,9 +4,10 @@
              xmlns:local="clr-namespace:TimeTracker"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-        
         <ResourceDictionary>
             <BooleanToVisibilityConverter x:Key="BoolToVis"/>
+            <BitmapImage x:Key="DashboardSplashImage" UriSource="./assets/dashboard_content_bg.png" />
+            
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="resources/theme.xaml" />
             </ResourceDictionary.MergedDictionaries>

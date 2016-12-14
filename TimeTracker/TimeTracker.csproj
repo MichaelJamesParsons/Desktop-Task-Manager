@@ -176,6 +176,7 @@
     <Resource Include="assets\win10_pause_icon.png" />
     <Resource Include="assets\win10_play_icon.png" />
     <Resource Include="assets\menu_toggle.png" />
+    <Resource Include="assets\dashboard_content_bg.png" />
     <Content Include="assets\menu_toggle.svg" />
   </ItemGroup>
   <ItemGroup>
