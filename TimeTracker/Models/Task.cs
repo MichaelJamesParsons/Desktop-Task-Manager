@@ -66,6 +66,7 @@ namespace TimeTracker.Models {
 
         public Task(string description)
         {
+            IsActive = false;
             _description = description;
             TimeEntries = new List<TimeEntry>();
         }
