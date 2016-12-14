@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
+using Newtonsoft.Json;
 using TimeTracker.Annotations;
 
 namespace TimeTracker.Models {
@@ -30,9 +31,24 @@ namespace TimeTracker.Models {
         //Children of task
         private List<Task> subTasks { get; set; }
 
+        [JsonProperty("time_entries")]
         public List<TimeEntry> TimeEntries { get; set; }
 
         public TimeSpan Duration => CalculateSpan();
+
+        private bool _isActive;
+        public bool IsActive
+        {
+            get
+            {
+                return _isActive;
+            }
+            set
+            {
+                _isActive = value;
+                OnPropertyChanged();
+            }
+        }
 
         private string _timeString;
         public string TimeString
@@ -52,16 +68,6 @@ namespace TimeTracker.Models {
         {
             _description = description;
             TimeEntries = new List<TimeEntry>();
-        }
-
-
-        //R.3.1 The system shall validate the user input.
-        private bool isValidTask() {
-            bool rtn = true;
-
-            rtn &= Description != "";
-
-            return rtn;
         }
 
         public TimeSpan CalculateSpan()

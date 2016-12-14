@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
-using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Threading;
-using TimeTracker.Annotations;
 using TimeTracker.Commands;
 using TimeTracker.Models;
 using TimeTracker.Services;
@@ -25,6 +23,12 @@ namespace TimeTracker.ViewModels
             set
             {
                 _activeTask = value;
+
+                if (_activeTask != null)
+                {
+                    _activeTask.IsActive = true;
+                }
+
                 OnPropertyChanged();
             }
         }
@@ -112,6 +116,7 @@ namespace TimeTracker.ViewModels
 
         private void OnActiveTaskStartComplete(Task<TimeEntry> asyncTask, Task task)
         {
+            task.IsActive = true;
             ActiveTask = task;
             ActiveTimeEntry = asyncTask.Result;
             Timer = GetTime(ActiveTask, ActiveTimeEntry);
@@ -137,12 +142,20 @@ namespace TimeTracker.ViewModels
 
         private void OnEndActiveTaskComplete(Task<TimeEntry> asyncTask, Action<System.Threading.Tasks.Task> callback)
         {
+            TimeEntry t = asyncTask.Result;
+            ActiveTask.TimeEntries.Add(t);
+
             callback(asyncTask);
             ResetActiveTask();
         }
 
         public void ResetActiveTask()
         {
+            if (ActiveTask != null)
+            {
+                ActiveTask.IsActive = false;
+            }
+
             ActiveTask = null;
             ActiveTimeEntry = null;
             IsFooterTrayVisible = false;
@@ -165,7 +178,9 @@ namespace TimeTracker.ViewModels
                 timeDifference = DateTime.Now - activeTimeEntry.Start;
             }
 
-            var totalSeconds = (timeDifference + t.CalculateSpan()).TotalSeconds;
+            var span = t.CalculateSpan();
+            var totalSeconds = (timeDifference + span).TotalSeconds;
+
             var time = TimeSpan.FromSeconds(totalSeconds);
             var str = "";
 

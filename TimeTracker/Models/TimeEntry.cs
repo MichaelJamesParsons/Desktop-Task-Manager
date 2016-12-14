@@ -1,14 +1,18 @@
 ﻿using System;
+using Newtonsoft.Json;
 
 namespace TimeTracker.Models {
     public class TimeEntry {
         //Id of Time Entry
+        [JsonProperty("id")]
         public int Id { get; }
 
         //Start Time for Time Entry
+        [JsonProperty("start")]
         public DateTime Start { get; set; }
 
         //End Time for Time Entry
+        [JsonProperty("end")]
         public DateTime? End { get; set; }
 
         /// <summary>
@@ -27,6 +31,7 @@ namespace TimeTracker.Models {
         }
 
         //Foreign Key related to which task it is connected to.
+        [JsonProperty("task_id")]
         public int TaskId { get; }
 
         /// <summary>

@@ -4,6 +4,13 @@
              xmlns:local="clr-namespace:TimeTracker"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-        <ResourceDictionary Source="resources/theme.xaml" />
+        
+        <ResourceDictionary>
+            <BooleanToVisibilityConverter x:Key="BoolToVis"/>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="resources/theme.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+        </ResourceDictionary>
+        
     </Application.Resources>
 </Application>

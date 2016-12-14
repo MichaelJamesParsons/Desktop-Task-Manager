@@ -144,10 +144,6 @@ namespace TimeTracker.ViewModels
             if (_masterViewModel.ActiveTask != null && task.Id == _masterViewModel.ActiveTask.Id)
             {
                 _masterViewModel.ResetActiveTask();
-                /*_masterViewModel.EndActiveTask(t =>
-                {
-                    //do nothing
-                });*/
             }
         }
 
