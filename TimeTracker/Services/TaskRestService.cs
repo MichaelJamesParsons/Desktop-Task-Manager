@@ -21,7 +21,6 @@ namespace TimeTracker.Services
 
             var response = (HttpWebResponse) request.GetResponse();
             var jsonString = (new StreamReader(response.GetResponseStream())).ReadToEnd();
-            var jsonResponse = JObject.Parse(jsonString);
                 
             return JsonConvert.DeserializeObject<DeleteResponse>(jsonString).success;
         }

@@ -102,11 +102,24 @@ namespace TimeTracker.ViewModels
 
         public void SetActiveTask(Task task)
         {
-            if (task == ActiveTask)
+            if (ActiveTask != null)
             {
-                return;
+                //Disable the current task before starting a new one.
+                ActiveTask.IsActive = false;
+                EndActiveTask(o =>
+                {
+                    ActivateTask(task);
+                });
             }
+            else
+            {
+                ActivateTask(task);
+            }
+            
+        }
 
+        private void ActivateTask(Task task)
+        {
             var asyncTask = System.Threading.Tasks.Task.Run(() => _taskService.StartTask(task));
             asyncTask.ContinueWith((t) =>
             {
