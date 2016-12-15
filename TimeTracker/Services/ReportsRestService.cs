@@ -10,15 +10,16 @@ namespace TimeTracker.Services
     {
         public string ReportsEndpoint = @"http://138.197.15.79/task/analytics";
 
-        public List<ReportableTask> GetWeeklyActivity()
+        public WeekReport GetWeeklyActivity()
         {
             HttpWebRequest request = (HttpWebRequest)WebRequest.Create(ReportsEndpoint + "/week");
-            request.Method = "DELETE";
+            request.Method = "GET";
 
             var response = (HttpWebResponse)request.GetResponse();
             var jsonString = (new StreamReader(response.GetResponseStream())).ReadToEnd();
 
-            return JsonConvert.DeserializeObject<List<ReportableTask>>(jsonString);
+            var taskReports = JsonConvert.DeserializeObject<List<ReportableTask>>(jsonString);
+            return new WeekReport(taskReports);
         }
     }
 }

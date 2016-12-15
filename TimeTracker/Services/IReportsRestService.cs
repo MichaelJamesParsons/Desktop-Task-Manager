@@ -1,10 +1,10 @@
-﻿using System.Collections.Generic;
+﻿using System;
 using TimeTracker.Models;
 
 namespace TimeTracker.Services
 {
     interface IReportsRestService
     {
-        List<ReportableTask> GetWeeklyActivity();
+        WeekReport GetWeeklyActivity();
     }
 }
