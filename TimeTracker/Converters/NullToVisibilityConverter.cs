@@ -5,6 +5,10 @@ using System.Windows.Data;
 
 namespace TimeTracker.Converters
 {
+    /// <summary>
+    /// Hides a UI element if the binded property contains a
+    /// null value.
+    /// </summary>
     class NullToVisibilityConverter : IValueConverter
     {
         public object Convert(object value, Type targetType, object parameter, CultureInfo culture)

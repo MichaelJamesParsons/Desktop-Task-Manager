@@ -11,8 +11,15 @@ namespace TimeTracker.ViewModels
 {
     class MasterViewModel : BaseViewModel
     {
-        private Task _activeTask;
+        /// <summary>
+        /// The service used to perform CRUD operations on the tasks.
+        /// </summary>
+        private readonly ITaskService _taskService;
 
+        /// <summary>
+        /// The task which owns the active time entry.
+        /// </summary>
+        private Task _activeTask;
         public Task ActiveTask
         {
             get
@@ -24,6 +31,7 @@ namespace TimeTracker.ViewModels
             {
                 _activeTask = value;
 
+                //Flag the new task as active.
                 if (_activeTask != null)
                 {
                     _activeTask.IsActive = true;
@@ -33,6 +41,26 @@ namespace TimeTracker.ViewModels
             }
         }
 
+        /// <summary>
+        /// The time entry used to track the timer of the active task.
+        /// </summary>
+        private TimeEntry _activeTimeEntry;
+        public TimeEntry ActiveTimeEntry
+        {
+            get
+            {
+                return _activeTimeEntry;
+            }
+            set
+            {
+                _activeTimeEntry = value;
+                OnPropertyChanged();
+            }
+        }
+
+        /// <summary>
+        /// Toggles the visibility of the timer in the application's footer.
+        /// </summary>
         private bool _isFooterTrayVisible;
         public bool IsFooterTrayVisible
         {
@@ -44,6 +72,9 @@ namespace TimeTracker.ViewModels
             }
         }
 
+        /// <summary>
+        /// The timer shown in the application's footer.
+        /// </summary>
         private string _timer;
         public string Timer
         {
@@ -59,23 +90,28 @@ namespace TimeTracker.ViewModels
             }
         }
 
-        private TimeEntry _activeTimeEntry;
-
-        public TimeEntry ActiveTimeEntry
+        /// <summary>
+        /// The command that is to be submitted in order 
+        /// to stop the current task.
+        /// </summary>
+        public ICommand StopTaskCommand
         {
             get
             {
-                return _activeTimeEntry;
-            }
-            set
-            {
-                _activeTimeEntry = value;
-                OnPropertyChanged();
+                return new ActionCommand(o =>
+                {
+                    EndActiveTask(t =>
+                    {
+                        //do nothing
+                    });
+                }, o => true);
             }
         }
-        
-        private readonly ITaskService _taskService;
 
+        /// <summary>
+        /// Initializes the master view model.
+        /// </summary>
+        /// <param name="taskService"></param>
         public MasterViewModel(ITaskService taskService)
         {
             _taskService = taskService;
@@ -83,6 +119,9 @@ namespace TimeTracker.ViewModels
             InitializeTimer();
         }
 
+        /// <summary>
+        /// Starts the timer for the active time entry.
+        /// </summary>
         private void InitializeTimer()
         {
             var timer = new DispatcherTimer {Interval = TimeSpan.FromSeconds(1)};
@@ -90,6 +129,11 @@ namespace TimeTracker.ViewModels
             timer.Start();
         }
 
+        /// <summary>
+        /// Updates the timer at the interval defined in InitializeTimer().
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         void timer_Tick(object sender, EventArgs e)
         {
             Timer = GetTime(_activeTask, _activeTimeEntry);
@@ -100,6 +144,10 @@ namespace TimeTracker.ViewModels
             }
         }
 
+        /// <summary>
+        /// Set the current task to be timed.
+        /// </summary>
+        /// <param name="task"></param>
         public void SetActiveTask(Task task)
         {
             if (ActiveTask != null)
@@ -113,11 +161,16 @@ namespace TimeTracker.ViewModels
             }
             else
             {
+                //No task is already active. Start the new task.
                 ActivateTask(task);
             }
             
         }
-
+        
+        /// <summary>
+        /// Sends request to service to start a timer for the given task.
+        /// </summary>
+        /// <param name="task"></param>
         private void ActivateTask(Task task)
         {
             var asyncTask = System.Threading.Tasks.Task.Run(() => _taskService.StartTask(task));
@@ -127,6 +180,11 @@ namespace TimeTracker.ViewModels
             }, TaskScheduler.FromCurrentSynchronizationContext());
         }
 
+        /// <summary>
+        /// Callback for when a task is started.
+        /// </summary>
+        /// <param name="asyncTask"></param>
+        /// <param name="task"></param>
         private void OnActiveTaskStartComplete(Task<TimeEntry> asyncTask, Task task)
         {
             task.IsActive = true;
@@ -136,6 +194,10 @@ namespace TimeTracker.ViewModels
             IsFooterTrayVisible = true;
         }
 
+        /// <summary>
+        /// Ends the timer for the current task.
+        /// </summary>
+        /// <param name="callback"></param>
         public void EndActiveTask(Action<System.Threading.Tasks.Task> callback)
         {
             try
@@ -147,12 +209,17 @@ namespace TimeTracker.ViewModels
                     OnEndActiveTaskComplete(t, callback);
                 }, TaskScheduler.FromCurrentSynchronizationContext());
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 ResetActiveTask();
             }
         }
 
+        /// <summary>
+        /// Callback for when the current task's timer is stopped.
+        /// </summary>
+        /// <param name="asyncTask"></param>
+        /// <param name="callback"></param>
         private void OnEndActiveTaskComplete(Task<TimeEntry> asyncTask, Action<System.Threading.Tasks.Task> callback)
         {
             TimeEntry t = asyncTask.Result;
@@ -162,6 +229,9 @@ namespace TimeTracker.ViewModels
             ResetActiveTask();
         }
 
+        /// <summary>
+        /// Clears the active task and time entry from the UI.
+        /// </summary>
         public void ResetActiveTask()
         {
             if (ActiveTask != null)
@@ -174,6 +244,13 @@ namespace TimeTracker.ViewModels
             IsFooterTrayVisible = false;
         }
 
+        /// <summary>
+        /// Calculates the duration of the current task, then builds a string
+        /// representation of the task's timer.
+        /// </summary>
+        /// <param name="t"></param>
+        /// <param name="activeTimeEntry"></param>
+        /// <returns></returns>
         public string GetTime(Task t, TimeEntry activeTimeEntry)
         {
             if (t == null)
@@ -217,20 +294,6 @@ namespace TimeTracker.ViewModels
             }
 
             return str;
-        }
-        
-        public ICommand StopTaskCommand
-        {
-            get
-            {
-                return new ActionCommand(o =>
-                {
-                    EndActiveTask(t =>
-                    {
-                        //do nothing
-                    });
-                }, o => true);
-            }
         }
     }
 }

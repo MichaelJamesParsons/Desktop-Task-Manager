@@ -1,5 +1,4 @@
-﻿using System;
-using TimeTracker.Models;
+﻿using TimeTracker.Models;
 
 namespace TimeTracker.Services
 {

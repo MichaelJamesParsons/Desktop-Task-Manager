@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using LiveCharts.Wpf;
+﻿using LiveCharts.Wpf;
 using TimeTracker.Charts;
 using TimeTracker.Services;
 
@@ -7,8 +6,9 @@ namespace TimeTracker.ViewModels
 {
     class ReportsViewModel : BaseViewModel
     {
-        private MasterViewModel _masterViewModel;
-
+        /// <summary>
+        /// The weekly activity chart to be rendered in the reports view.
+        /// </summary>
         private CartesianChart _weeklyActivityChart;
         public CartesianChart WeeklyActivityChart
         {
@@ -23,19 +23,22 @@ namespace TimeTracker.ViewModels
                 OnPropertyChanged();
             }
         }
-
-        public List<string> labels { get; set; }
-
-        public ReportsViewModel(MasterViewModel masterViewModel, IReportsRestService _reportsService)
+        
+        /// <summary>
+        /// Initializes the reports view model.
+        /// </summary>
+        /// <param name="reportsService"></param>
+        public ReportsViewModel(IReportsRestService reportsService)
         {
-            _masterViewModel = masterViewModel;
+            //Get the weekly activity from the service.
+            var weekReport = reportsService.GetWeeklyActivity();
 
-            var weekReport = _reportsService.GetWeeklyActivity();
+            //Build a chart from the service's report.
             var weekReportChart = WeeklyActivityChartBuilder.BuildWeeklyTaskCountChart(
                 weekReport.GetNumberOfTasksEachWeekDay()
             );
             
-//            labels = weekReportChart.Label
+            //Render the chart in the view.
             WeeklyActivityChart = weekReportChart;
         }
     }

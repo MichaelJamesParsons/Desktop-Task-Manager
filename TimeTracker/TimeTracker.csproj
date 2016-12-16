@@ -85,10 +85,6 @@
     <Compile Include="Charts\WeeklyActivityChartBuilder.cs" />
     <Compile Include="Commands\ActionCommand.cs" />
     <Compile Include="Commands\AsyncActionCommand.cs" />
-    <Compile Include="Commands\AwaitableDelegateCommand.cs" />
-    <Compile Include="Commands\DelegateCommand.cs" />
-    <Compile Include="Commands\IAsyncCommand.cs" />
-    <Compile Include="Commands\IRaiseCanExecuteChanged.cs" />
     <Compile Include="Converters\InverseBooleanVisibilityConverter.cs" />
     <Compile Include="Converters\NullToVisibilityConverter.cs" />
     <Compile Include="Ioc\IocKernel.cs" />
@@ -102,7 +98,6 @@
     <Compile Include="ReportsView.xaml.cs">
       <DependentUpon>ReportsView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Repositories\TaskRepo.cs" />
     <Compile Include="Services\IReportsRestService.cs" />
     <Compile Include="Services\ITaskService.cs" />
     <Compile Include="Services\ReportsRestService.cs" />
