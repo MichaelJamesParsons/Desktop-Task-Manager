@@ -31,11 +31,18 @@ namespace TimeTracker.Charts
                 }
             };
 
+            days[days.Count - 1] = "Today";
+            days[days.Count - 2] = "Yesterday";
             chart.AxisX.Add(new Axis
              {
                  Title = "Day of Week",
                  Labels = days
              });
+
+            chart.AxisY.Add(new Axis
+            {
+                MinValue = 0
+            });
 
             return chart;
         }
